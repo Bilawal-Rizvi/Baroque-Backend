@@ -26,7 +26,17 @@ export const userCreate = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("Login attempt for email:", email);
+if (!email || !password) {
+  return res.status(400).json({ message: "Email and password are required" });
+}
     const user = await User.findOne({ email });
+    if (!user.password) {
+  return res.status(500).json({
+    message: "User password not found"
+  });
+}
+
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
@@ -40,7 +50,7 @@ export const login = async (req, res) => {
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: true,
-      sameSite: "Strict",
+     sameSite: "None",  
       maxAge: 10 * 60 * 60 * 1000,
     });
      if(user.role ==="admin"){
@@ -49,7 +59,8 @@ export const login = async (req, res) => {
      }
     res.status(200).json({ message: "Login successful", user, accessToken });
   } catch (error) {
-    return res.status(500).json({ message:error});
+    return res.status(500).json({ message:error.message,
+    });
   }
 };
 export const TokenVerified = async (req, res) => {
