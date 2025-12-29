@@ -49,7 +49,7 @@ export const login = async (req, res) => {
      }
     res.status(200).json({ message: "Login successful", user, accessToken });
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message:error});
   }
 };
 export const TokenVerified = async (req, res) => {
