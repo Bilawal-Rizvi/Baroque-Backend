@@ -19,6 +19,7 @@ dotenv.config();
 app.use(
   cors({
     origin: "http://localhost:5173", // React ka URL
+    origin: "https://baroque-frontend-iota.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true, // agar cookies bhejni hain
   })
