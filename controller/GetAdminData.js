@@ -89,7 +89,7 @@ export const UpdateStatus = async (req, res) => {
 };
 export const  AllProducts=async(req,res)=>{
   try{
-  const Data = await ProductModel.find();
+  const Data = await ProductModel.find().lean();
   res.status(200).json({
     success:true,
     message:"Data Sent",
