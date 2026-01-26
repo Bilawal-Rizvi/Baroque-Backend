@@ -23,7 +23,7 @@ app.use(express.json());
 
 const allowedOrigins = [
   "http://localhost:5173",  // local dev
-  "https://baroque-frontend-iota.vercel.app" // frontend Vercel
+  "https://baroque-frontend-iota.vercel.app/" // frontend Vercel
 ];
 
 app.use(cors({
