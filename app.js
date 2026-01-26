@@ -22,14 +22,14 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 const allowedOrigins = [
-  "http://localhost:5173",  // local dev
-  "https://baroque-frontend-iota.vercel.app/" // frontend Vercel
+  "http://localhost:5173",
+  "https://baroque-frontend-iota.vercel.app"
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // curl, mobile apps
-    if (allowedOrigins.indexOf(origin) === -1) {
+    if (!origin) return callback(null, true); // curl / mobile
+    if (!allowedOrigins.includes(origin)) {
       return callback(new Error("CORS not allowed"), false);
     }
     return callback(null, true);
@@ -38,7 +38,7 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 }));
 
-// Preflight handler
+// Preflight for all routes
 app.options(/.*/, cors({
   origin: allowedOrigins,
   credentials: true
