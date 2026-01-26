@@ -22,16 +22,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 // CORS
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://baroque-frontend-iota.vercel.app"
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-  })
-);
+app.use(cors());
 
 // Routes
 app.get("/v2", (req, res) => res.send("API is working v2"));
