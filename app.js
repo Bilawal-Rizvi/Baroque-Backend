@@ -21,9 +21,28 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
 
-// CORS
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173",  // local dev
+  "https://baroque-frontend-iota.vercel.app" // frontend Vercel
+];
 
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // curl, mobile apps
+    if (allowedOrigins.indexOf(origin) === -1) {
+      return callback(new Error("CORS not allowed"), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+}));
+
+// Preflight handler
+app.options("*", cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 // Routes
 app.get("/v2", (req, res) => res.send("API is working v2"));
 
