@@ -3,8 +3,6 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import "./DB/connection.js";
-
 // Routes
 import { UserRoutes } from "./Routes/UserRoutes.js";
 import router from "./Routes/uploadimage.js";
